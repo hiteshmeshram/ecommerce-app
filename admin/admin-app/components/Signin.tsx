@@ -1,3 +1,6 @@
+'use client'
+import { signIn } from "next-auth/react"
+
 export const Signin = ()=>{
     return (
     <div className="flex justify-center pt-[5%]">
@@ -20,7 +23,9 @@ export const Signin = ()=>{
                 --------or continue with--------
             </div>
             <div className="flex justify-center  mb-4">
-                <button className=" text-black shadow-lg border border-black py-2 mx-2 px-4 rounded-md">GOOGLE</button>
+                <button onClick={()=>{
+                    signIn()
+                }} className=" text-black shadow-lg border border-black py-2 mx-2 px-4 rounded-md">GOOGLE</button>
                 <button className="text-black shadow-lg border border-black py-2 mx-2 px-4 rounded-md">GITHUB</button>
             </div>
     </div>
