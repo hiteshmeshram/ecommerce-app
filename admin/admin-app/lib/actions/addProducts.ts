@@ -19,13 +19,19 @@ export  async function addProducts (
             price,
             imageurl,
             description,
+            userId: Number(userId),
             category: {
                 create: {
-                    procuctCategory:ProcuctCategory.laptop ?? category,
+                    procuctCategory:ProcuctCategory.mobile ?? category,
                     color,
                     size
                 }
             }
         }
     })
+
+    return {
+        success: true,
+        "message":" procuct added successfully"
+    }
 }
