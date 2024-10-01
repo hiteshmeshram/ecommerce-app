@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Category" ALTER COLUMN "size" SET DATA TYPE TEXT;
