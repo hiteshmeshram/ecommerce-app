@@ -1,12 +1,14 @@
 "use client"
+import { useSession } from "next-auth/react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-
+const nodemailer = require("nodemailer");
 import { useEffect, useState } from "react"
 import stripe from 'stripe';
 
 export default function paymentsuccess() {
     const sessionId = useSearchParams()
     const router = useRouter()
+    const session = useSession()
     // const [session,setSession]=useState()
     
     // async function getSessionObject() {
@@ -21,9 +23,37 @@ export default function paymentsuccess() {
         
     // })
 
-    const handleClick = ()=>{
-        //send email to user 
-        router.push('/home')
+    const transporter = nodemailer.createTransport({
+        host: "smtp.ethereal.email",
+        port: 587,
+        secure: false, // true for port 465, false for other ports
+        auth: {
+          user: "maddison53@ethereal.email",
+          pass: "jn7jnAPss4f63QBp6D",
+        },
+      });
+
+      async function main() {
+        // send mail with defined transport object
+        const info = await transporter.sendMail({
+          from: '"Maddison Foo Koch 👻" <maddison53@ethereal.email>', // sender address
+          to: session?.data?.user?.email, // list of receivers
+          subject: "Hello ✔", // Subject line
+          text: "Hello world?", // plain text body
+          html: "<b>Hello world?</b>", // html body
+        });
+      
+        console.log("Message sent: %s", info.messageId);
+        return true;
+        // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
+      }
+
+    const handleClick =async ()=>{
+        //send email to user
+        const res = await main()
+        if(res) {
+           router.push('/home')
+        }
     }
     return <div className="flex justify-center my-[10%] text-center px-10">
         <div className="w-96 border shadow-xl">
