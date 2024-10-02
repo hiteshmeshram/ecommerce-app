@@ -7,9 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Admin {
+  id       Int       @id @default(autoincrement())
+  name     String?
+  email    String    @unique
+  password String?
+  Product  Product[]
+}
+
 model Category {
   id              Int             @id @default(autoincrement())
-  procuctCategory ProcuctCategory
+  procuctCategory ProductCategory
   color           String
   size            String
   procuctId       Int
@@ -22,21 +30,15 @@ model Product {
   description String
   price       Int
   imageurl    String
-  userId      Int
+  adminId     Int
   Category    Category[]
-  User        User       @relation(fields: [userId], references: [id])
+  admin       Admin       @relation(fields: [adminId], references: [id])
+  cart        Cart[]
 }
 
-model User {
-  id       Int       @id @default(autoincrement())
-  name     String?
-  email    String    @unique
-  password String?
-  role     Role?
-  Product  Product[]
-}
 
-enum ProcuctCategory {
+
+enum ProductCategory {
   mobile
   laptop
   headset
@@ -45,4 +47,31 @@ enum ProcuctCategory {
 enum Role {
   admin
   client
+}
+
+model User {
+  id         Int @id @default(autoincrement())
+  name       String?
+  email      String
+  password   String?
+  cart       Cart[]
+  address    Address []
+}
+
+model Cart {
+  id         Int @id @default(autoincrement())
+  userId     Int  
+  productId  Int  
+  user       User @relation(fields: [userId],references: [id])
+  product    Product @relation(fields: [productId],references: [id])
+}
+
+
+model Address {
+  id        Int @id @default(autoincrement())
+  city      String
+  country   String
+  pincode   Int
+  userId    Int
+  user      User @relation(fields: [userId],references: [id])
 }
