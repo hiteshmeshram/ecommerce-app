@@ -34,6 +34,7 @@ model Product {
   Category    Category[]
   admin       Admin       @relation(fields: [adminId], references: [id])
   cart        Cart[]
+  
 }
 
 
@@ -52,19 +53,22 @@ enum Role {
 model User {
   id         Int @id @default(autoincrement())
   name       String?
-  email      String
+  email      String  @unique
   password   String?
   cart       Cart[]
   address    Address []
+  
+
 }
 
 model Cart {
   id         Int @id @default(autoincrement())
   userId     Int  
-  productId  Int  
+  productId  Int  @unique
   user       User @relation(fields: [userId],references: [id])
   product    Product @relation(fields: [productId],references: [id])
 }
+
 
 
 model Address {

@@ -12,24 +12,32 @@ export const authOptions = {
       secret: process.env.JWT_SECRET || "secret",
       callbacks: {
         async signIn({user}: any) {
-            //check if the user already exists in db
-            let existinguser = await prisma.user.findUnique({
-                where: {
-                    email: user.email
-                }
-            })
+            const adminEmail = process.env.ADMIN_EMAIL;
 
-            if(!existinguser) {
-               existinguser=  await prisma.user.create({
-                    data: {
-                        name: user.name,
-                        email: user.email
-                    }
-                })
+            const admin = adminEmail === user.email;
+            if (admin) {
+                return true;
             }
 
-            user.id = existinguser.id;
-            return true;
+            return false;
+
+            // let existinguser = await prisma.admin.findUnique({
+            //     where: {
+            //         email: user.email
+            //     }
+            // })
+
+            // if(!existinguser) {
+            //    existinguser=  await prisma.admin.create({
+            //         data: {
+            //             name: user.name,
+            //             email: user.email
+            //         }
+            //     })
+            // }
+
+            // user.id = existinguser.id;
+            // return true;
         },
 
         async jwt({token,user}: any) {
