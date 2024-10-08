@@ -4,16 +4,12 @@ import * as React from "react";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { loadStripe } from "@stripe/stripe-js";
-import { EmbeddedCheckout, EmbeddedCheckoutProvider } from "@stripe/react-stripe-js";
-import axios from "axios";
+
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 import addAddressAction from "@/lib/actions/addAddressAction";
 
 export function AddressCard() {

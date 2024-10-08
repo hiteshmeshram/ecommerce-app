@@ -3,11 +3,6 @@ import CredentialsProvider from "next-auth/providers/credentials"
 import GoogleProvider from "next-auth/providers/google";
 import bcrypt from 'bcrypt'
 
-interface Credentials {
-    username: string,
-    password: string
-}
-
 export const authOPtions = {
     providers: [
         CredentialsProvider({
@@ -16,7 +11,7 @@ export const authOPtions = {
             username: { label: "Username", type: "text", placeholder: "jsmith" },
             password: { label: "Password", type: "password" }
           },
-          async authorize(credentials: any,req ) {
+          async authorize(credentials: any) {
             
            const username = credentials.username;
            const password = credentials.password;
@@ -93,7 +88,7 @@ export const authOPtions = {
             return token;
         },
 
-        async session({session,token,user}: any) {
+        async session({session,token}: any) {
             if(token?.id) {
                 session.user.id=token.id
             }

@@ -64,7 +64,7 @@ export default function () {
             <div className="col-span-8 bg-white border mx-[8%] mt-10 mb-5 rounded-md shadow-xl">
                 <div>
                 {cartitems.map((item)=>{
-                    return <div className="flex justify-between py-2 border-b mb-2 mx-[5%]">
+                    return <div key={item.id} className="flex justify-between py-2 border-b mb-2 mx-[5%]">
                                 <div className="  ">
                                     <img className="h-48 w-48" src={item.product.imageurl} alt="image"></img>
                                     <div className="font-semibold flex justify-center mt-2 text-xl">

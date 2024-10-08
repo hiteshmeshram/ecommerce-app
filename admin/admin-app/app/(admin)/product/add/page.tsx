@@ -2,7 +2,7 @@
 
 import { Inputfield } from "@/components/Inputfield"
 import { addProducts } from "@/lib/actions/addProducts";
-import { ProcuctCategory } from "@prisma/client";
+import { ProductCategory } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -24,7 +24,7 @@ export default function () {
     const router = useRouter()
 
     const session = useSession();
-    const userId = session?.data?.user?.id;
+    const adminId = session?.data?.user?.id;
 
     const handleChange = (e: any)=>{
         const file = e.target?.files[0];
@@ -46,12 +46,12 @@ export default function () {
 
     return <div>
         <div>
-            <Inputfield label="Product name" type="text" placeholder="product name" onChange={(value: string)=>{
+            <Inputfield label="Product name" value={name}  type="text" placeholder="product name" onChange={(value: string)=>{
                 setName(value)
             }}/>
         </div>
         <div>
-            <Inputfield label="Product Price" type="number" placeholder="product price" onChange={(value: string)=>{
+            <Inputfield label="Product Price" value={price.toString()} type="number" placeholder="product price" onChange={(value: string)=>{
                 setPrice(Number(value))
             }}/>
         </div>
@@ -77,7 +77,7 @@ export default function () {
         </div>
         
         <div>
-            <Inputfield label="Product size" type="text" placeholder="product price" onChange={(value: string)=>{
+            <Inputfield label="Product size" value={size} type="text" placeholder="product price" onChange={(value: string)=>{
                 setSize(value)
             }}/>
         </div>
@@ -103,7 +103,7 @@ export default function () {
 
         <div>
             <button onClick={async()=>{
-                const result =await addProducts(name,price,category,color,size,imageUrl,description,userId)
+                const result =await addProducts(name,price,category,color,size,imageUrl,description,adminId)
                 if(result.success){
                     setMessage(result.message)
                     alert(message);

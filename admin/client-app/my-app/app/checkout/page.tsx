@@ -35,7 +35,7 @@ export default function checkout() {
       setCartItems(items)
         try {
             const res = await axios.post('/api/createcheckout',{
-              cartProducts: items
+              cartProducts: cartItems
             });
             setClientSecretKey(res.data.clientSecret); // Assuming 'clientSecret' is in the response
           } catch (error) {

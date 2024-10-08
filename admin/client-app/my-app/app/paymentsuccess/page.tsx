@@ -1,28 +1,13 @@
 "use client"
 import { useSession } from "next-auth/react";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react"
+import {  useRouter, useSearchParams } from "next/navigation";
 import stripe from 'stripe';
 
 export default function paymentsuccess() {
     const sessionId = useSearchParams()
     const router = useRouter()
     const session = useSession()
-    // const [session,setSession]=useState()
-    
-    // async function getSessionObject() {
-    //     //@ts-ignore
-    //     const session = await stripe.checkout.sessions.retrieve(sessionId);
-    //     console.log(session)
-
-    // }
-
-    // useEffect(()=>{
-    //       getSessionObject()
-        
-    // })
-
-
+   
     const handleClick =async ()=>{
         //tofix: fix this email isn't going
         // const res = await main()

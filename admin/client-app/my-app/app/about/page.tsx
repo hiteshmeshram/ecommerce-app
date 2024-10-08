@@ -1,5 +1,5 @@
 "use client"
-import { AlertDemo } from "@/components/AlertDemo";
+
 import { Header } from "@/components/Header";
 
 export default function About() {

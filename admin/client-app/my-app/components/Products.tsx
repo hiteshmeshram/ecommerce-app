@@ -1,7 +1,6 @@
 "use client"
 import getallProducts from "@/lib/actions/getallProducts"
 import { useEffect, useState } from "react"
-import Demo from "./Demo";
 import { Card } from "./Card";
 import { Loading } from "./Loading";
 import {
@@ -13,10 +12,6 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
-import { Spinner } from "./Spinner";
-
-
-
 
 interface Product {
         id: number;
@@ -50,7 +45,7 @@ export const Products = ()=>{
         {/* {!products && <Spinner/>} */}
         <div className="flex flex-wrap justify-center gap-4">
             {products.map((product)=>{
-                return <Card product={product}/>
+                return <Card key={product.id} product={product}/>
             })}
             
         </div>
